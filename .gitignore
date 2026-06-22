@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+
+# macOS
+.DS_Store
+
+# Local data (regenerated on each run)
+data/*.db
+
+# Generated reports (regenerated on each run).
+# A single sample is kept under docs/ for the GitHub Pages demo.
+reports/
