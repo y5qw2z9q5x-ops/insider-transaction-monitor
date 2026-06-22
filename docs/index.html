@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Insider Transactions by Hadi Saade - 2026-06-22</title>
+  <style>
+    :root {
+      --ink: #15202b;
+      --muted: #5d6b78;
+      --line: #d6dee5;
+      --bg: #f3f7fb;
+      --card: #ffffff;
+      --accent: #0f766e;
+      --accent-soft: #d9f3ef;
+      --warn: #a16207;
+      --pos: #166534;
+      --neg: #991b1b;
+      --shadow: 0 18px 40px rgba(21, 32, 43, 0.08);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top right, rgba(15, 118, 110, 0.10), transparent 30%),
+        linear-gradient(180deg, #fbfdff 0%, var(--bg) 100%);
+    }
+    .wrap {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 40px 0 56px;
+    }
+    .hero {
+      background: linear-gradient(135deg, #fcfffe 0%, #e6f4f1 100%);
+      border: 1px solid rgba(15, 118, 110, 0.16);
+      border-radius: 28px;
+      padding: 32px;
+      box-shadow: var(--shadow);
+    }
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font: 600 12px/1.2 "Avenir Next", "Segoe UI", sans-serif;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(34px, 5vw, 56px);
+      line-height: 0.95;
+    }
+    .hero p {
+      margin: 0;
+      max-width: 760px;
+      font-size: 18px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin: 28px 0 22px;
+    }
+    .metric {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 18px 18px 16px;
+      box-shadow: var(--shadow);
+    }
+    .metric-label {
+      display: block;
+      font: 600 12px/1.2 "Avenir Next", "Segoe UI", sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .metric-value {
+      font-size: 34px;
+      line-height: 1;
+    }
+    .panel {
+      margin-top: 24px;
+      background: rgba(255, 255, 255, 0.86);
+      border: 1px solid rgba(214, 222, 229, 0.9);
+      border-radius: 24px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+    .panel h2 {
+      margin: 0 0 14px;
+      font-size: 28px;
+    }
+    .legend {
+      margin: 0;
+      padding-left: 18px;
+      font: 500 15px/1.6 "Avenir Next", "Segoe UI", sans-serif;
+      color: var(--muted);
+    }
+    .legend li {
+      margin-bottom: 10px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: "Avenir Next", "Segoe UI", sans-serif;
+      font-size: 14px;
+      background: var(--card);
+      border-radius: 18px;
+      overflow: hidden;
+    }
+    th, td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      text-align: left;
+    }
+    th {
+      background: #edf6f5;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+    tr:last-child td { border-bottom: none; }
+    .ticker-section {
+      margin-top: 24px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(214, 222, 229, 0.9);
+      border-radius: 24px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .section-header h2 {
+      margin: 0;
+      font-size: 30px;
+    }
+    .ticker-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 16px;
+      font: 500 14px/1.4 "Avenir Next", "Segoe UI", sans-serif;
+      color: var(--muted);
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 34px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #eef3f7;
+      font: 700 12px/1 "Avenir Next", "Segoe UI", sans-serif;
+      color: var(--ink);
+    }
+    .badge.strong {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+    .badge.quiet {
+      background: #f6efe0;
+      color: var(--warn);
+    }
+    .empty {
+      margin: 0;
+      color: var(--muted);
+      font: 500 15px/1.5 "Avenir Next", "Segoe UI", sans-serif;
+    }
+    .pct-pos { color: var(--pos); font-weight: 700; }
+    .pct-neg { color: var(--neg); font-weight: 700; }
+    .pct-flat { color: var(--muted); }
+    .footer {
+      margin-top: 20px;
+      color: var(--muted);
+      font: 500 13px/1.5 "Avenir Next", "Segoe UI", sans-serif;
+    }
+    @media (max-width: 860px) {
+      .wrap { width: min(100% - 20px, 1180px); padding-top: 20px; }
+      .hero, .panel, .ticker-section { padding: 18px; border-radius: 18px; }
+      th, td { padding: 10px 8px; font-size: 13px; }
+      .section-header { align-items: flex-start; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <div class="eyebrow">Daily Insider Monitor</div>
+      <h1>Insider Transactions by Hadi Saade</h1>
+      <p>Rolling 30-day Form 4 activity for the configured US stock watchlist, including insider roles, transaction codes, share counts, and estimated ownership change percentages.</p>
+    </section>
+    <section class="metrics"><article class='metric'><span class='metric-label'>Tickers Monitored</span><div class='metric-value'>4</div></article><article class='metric'><span class='metric-label'>Active Tickers</span><div class='metric-value'>3</div></article><article class='metric'><span class='metric-label'>Transactions</span><div class='metric-value'>15</div></article><article class='metric'><span class='metric-label'>Unique Insiders</span><div class='metric-value'>6</div></article></section>
+    <section class="panel">
+      <h2>Legend</h2>
+      <ul class="legend"><li><strong>Code</strong>: SEC transaction code. Common examples: <span class='badge'>P</span> purchase, <span class='badge'>S</span> sale, <span class='badge'>M</span> option exercise/conversion, <span class='badge'>A</span> grant/award, <span class='badge'>F</span> tax withholding or payment with shares.</li><li><strong>A/D</strong>: <span class='badge'>A</span> acquired, <span class='badge'>D</span> disposed.</li><li><strong>Reported Date</strong>: transaction date shown in the Form 4.</li><li><strong>Filing Date</strong>: date the Form 4 was submitted to the SEC.</li></ul>
+    </section>
+    <section class="panel">
+      <h2>Ticker Overview</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Ticker</th>
+            <th>Transactions</th>
+            <th>Insiders</th>
+            <th>Net Shares</th>
+            <th>Largest Ownership Move</th>
+          </tr>
+        </thead>
+        <tbody><tr><td>AAPL</td><td>9</td><td>3</td><td>-131,478.00</td><td>108.76%</td></td></tr><tr><td>HON</td><td>5</td><td>2</td><td>-178.30</td><td>50.85%</td></td></tr><tr><td>GEV</td><td>1</td><td>1</td><td>-4,819.00</td><td>72.42%</td></td></tr><tr><td>BEPC</td><td>0</td><td>0</td><td>0.00</td><td></td></td></tr></tbody>
+      </table>
+    </section>
+    <section class='ticker-section'><div class='section-header'><h2>AAPL</h2><span class='badge strong'>9 transactions</span></div><div class='ticker-meta'><span>Unique insiders: 3</span><span>Net shares: -131,478.00</span><span>Largest move: 108.76%</span></div><table><thead><tr><th>Filing Date</th><th>Reported Date</th><th>Insider</th><th>Role</th><th>Code</th><th>A/D</th><th>Shares</th><th>Price</th><th>Transaction Value</th><th>Ownership Change</th><th>Security</th></tr></thead><tbody><tr><td>2026-05-29</td><td>2026-05-27</td><td>LEVINSON ARTHUR D</td><td>Director</td><td><span class='badge'>S</span></td><td>D</td><td>50,000.00</td><td>$311.02</td><td>$15,551,000.00</td><td class='pct-neg'>-1.31%</td><td>Common Stock</td></tr><tr><td>2026-05-29</td><td>2026-05-27</td><td>LEVINSON ARTHUR D</td><td>Director</td><td><span class='badge'>G</span></td><td>D</td><td>65,000.00</td><td>$0.00</td><td>$0.00</td><td class='pct-neg'>-1.73%</td><td>Common Stock</td></tr><tr><td>2026-06-17</td><td>2026-06-15</td><td>Borders Ben</td><td>Officer</td><td><span class='badge'>M</span></td><td>A</td><td>240.00</td><td></td><td></td><td class='pct-pos'>0.62%</td><td>Common Stock</td></tr><tr><td>2026-06-17</td><td>2026-06-15</td><td>Borders Ben</td><td>Officer</td><td><span class='badge'>F</span></td><td>D</td><td>124.00</td><td>$296.42</td><td>$36,756.08</td><td class='pct-neg'>-0.32%</td><td>Common Stock</td></tr><tr><td>2026-06-17</td><td>2026-06-15</td><td>Borders Ben</td><td>Officer</td><td><span class='badge'>M</span></td><td>D</td><td>240.00</td><td></td><td></td><td class='pct-neg'>-12.53%</td><td>Restricted Stock Unit</td></tr><tr><td>2026-06-17</td><td>2026-06-15</td><td>Newstead Jennifer</td><td>Officer</td><td><span class='badge'>M</span></td><td>A</td><td>30,104.00</td><td></td><td></td><td class='pct-pos'>108.76%</td><td>Common Stock</td></tr><tr><td>2026-06-17</td><td>2026-06-15</td><td>Newstead Jennifer</td><td>Officer</td><td><span class='badge'>F</span></td><td>D</td><td>16,238.00</td><td>$296.42</td><td>$4,813,267.96</td><td class='pct-neg'>-28.10%</td><td>Common Stock</td></tr><tr><td>2026-06-17</td><td>2026-06-15</td><td>Newstead Jennifer</td><td>Officer</td><td><span class='badge'>M</span></td><td>D</td><td>30,104.00</td><td></td><td></td><td class='pct-neg'>-12.50%</td><td>Restricted Stock Unit</td></tr><tr><td>2026-06-17</td><td>2026-06-16</td><td>Borders Ben</td><td>Officer</td><td><span class='badge'>S</span></td><td>D</td><td>116.00</td><td>$295.14</td><td>$34,236.24</td><td class='pct-neg'>-0.30%</td><td>Common Stock</td></tr></tbody></table></section><section class='ticker-section'><div class='section-header'><h2>HON</h2><span class='badge strong'>5 transactions</span></div><div class='ticker-meta'><span>Unique insiders: 2</span><span>Net shares: -178.30</span><span>Largest move: 50.85%</span></div><table><thead><tr><th>Filing Date</th><th>Reported Date</th><th>Insider</th><th>Role</th><th>Code</th><th>A/D</th><th>Shares</th><th>Price</th><th>Transaction Value</th><th>Ownership Change</th><th>Security</th></tr></thead><tbody><tr><td>2026-06-03</td><td>2026-06-01</td><td>Evanko Jillian C.</td><td>Director</td><td><span class='badge'>A</span></td><td>A</td><td>149.70</td><td>$234.99</td><td>$35,178.00</td><td class='pct-flat'></td><td>Deferred Compensation (Phantom Shares)</td></tr><tr><td>2026-06-03</td><td>2026-06-01</td><td>Evanko Jillian C.</td><td>Director</td><td><span class='badge'>A</span></td><td>A</td><td>540.00</td><td>$0.00</td><td>$0.00</td><td class='pct-flat'></td><td>Restricted Stock Units</td></tr><tr><td>2026-06-03</td><td>2026-06-01</td><td>Kapur Vimal</td><td>Director, Officer</td><td><span class='badge'>M</span></td><td>A</td><td>1,997.00</td><td></td><td></td><td class='pct-pos'>17.85%</td><td>Common Stock</td></tr><tr><td>2026-06-03</td><td>2026-06-01</td><td>Kapur Vimal</td><td>Director, Officer</td><td><span class='badge'>F</span></td><td>D</td><td>868.00</td><td>$234.99</td><td>$203,971.32</td><td class='pct-neg'>-6.58%</td><td>Common Stock</td></tr><tr><td>2026-06-03</td><td>2026-06-01</td><td>Kapur Vimal</td><td>Director, Officer</td><td><span class='badge'>M</span></td><td>D</td><td>1,997.00</td><td>$0.00</td><td>$0.00</td><td class='pct-neg'>-50.85%</td><td>Restricted Stock Units</td></tr></tbody></table></section><section class='ticker-section'><div class='section-header'><h2>GEV</h2><span class='badge strong'>1 transactions</span></div><div class='ticker-meta'><span>Unique insiders: 1</span><span>Net shares: -4,819.00</span><span>Largest move: 72.42%</span></div><table><thead><tr><th>Filing Date</th><th>Reported Date</th><th>Insider</th><th>Role</th><th>Code</th><th>A/D</th><th>Shares</th><th>Price</th><th>Transaction Value</th><th>Ownership Change</th><th>Security</th></tr></thead><tbody><tr><td>2026-06-03</td><td>2026-06-01</td><td>Abate Victor</td><td>Officer</td><td><span class='badge'>S</span></td><td>D</td><td>4,819.00</td><td>$948.08</td><td>$4,568,797.52</td><td class='pct-neg'>-72.42%</td><td>Common stock, par value $0.01 per share</td></tr></tbody></table></section><section class='ticker-section'><div class='section-header'><h2>BEPC</h2><span class='badge quiet'>No activity</span></div><p class='empty'>No insider transactions found in the last 30 days.</p></section>
+    <p class="footer">Generated from SEC EDGAR Form 4 filings. Ownership change percentages are estimated from transaction shares and post-transaction holdings reported on each transaction row.</p>
+  </main>
+</body>
+</html>
